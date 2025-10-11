@@ -2,6 +2,7 @@ package com.bikeshare.api.profile;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +15,27 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-    @Operation(summary = "Obtener perfil por ID de usuario", description = "Devuelve el perfil completo (propietario o arrendatario) de un usuario.")
+    @Operation(summary = "Obtener perfil (owner o renter) por ID de usuario")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<ProfileResponse> getProfileByUserId(@PathVariable Long userId) {
-        try {
-            return ResponseEntity.ok(profileService.getProfileByUserId(userId));
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ProfileResponse> getProfile(@PathVariable Long userId) {
+        return ResponseEntity.ok(profileService.getProfileByUserId(userId));
     }
 
-    // NOTA: El endpoint para /me (usuario autenticado) se añadiría aquí
-    // una vez que implementes la seguridad con tokens. Por ahora, usamos el ID.
+    @Operation(summary = "Actualizar perfil de un arrendatario (Renter)")
+    @PutMapping("/renter/{userId}")
+    public ResponseEntity<ProfileResponse> updateRenterProfile(
+            @PathVariable Long userId,
+            @Valid @RequestBody UpdateRenterProfileRequest request
+    ) {
+        return ResponseEntity.ok(profileService.updateRenterProfile(userId, request));
+    }
+
+    @Operation(summary = "Actualizar perfil de un propietario (Owner)")
+    @PutMapping("/owner/{userId}")
+    public ResponseEntity<ProfileResponse> updateOwnerProfile(
+            @PathVariable Long userId,
+            @Valid @RequestBody UpdateOwnerProfileRequest request
+    ) {
+        return ResponseEntity.ok(profileService.updateOwnerProfile(userId, request));
+    }
 }

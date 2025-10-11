@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL) // No incluye campos nulos en el JSON
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProfileResponse {
     private Long id;
     private String fullName;
@@ -15,14 +15,10 @@ public class ProfileResponse {
     private String avatarUrl;
     private boolean isOwner;
     private String publicBio;
-
-    // Campos de Owner
     private Boolean isVerified;
     private String payoutEmail;
     private String bankAccountNumber;
     private String yapePhoneNumber;
-
-    // Campos de Renter
     private String paymentMethod;
     private String preferredBikeType;
     private Boolean notificationsEnabled;

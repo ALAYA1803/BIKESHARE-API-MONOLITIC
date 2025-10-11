@@ -16,10 +16,10 @@ public class Review {
     private Reservation reservation;
 
     @ManyToOne @JoinColumn(name = "reviewer_id", nullable = false)
-    private User reviewer; // El que escribe la reseña (renter)
+    private User reviewer;
 
     @ManyToOne @JoinColumn(name = "owner_id", nullable = false)
-    private User owner; // El reseñado (owner)
+    private User owner;
 
     @Column(nullable = false)
     private Integer rating;

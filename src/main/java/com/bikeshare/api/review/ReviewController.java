@@ -39,7 +39,7 @@ public class ReviewController {
         } else if (renterId != null) {
             reviews = reviewService.findReviewsByRenter(renterId);
         } else {
-            return List.of(); // O lanzar un error si se prefiere
+            return List.of();
         }
         return reviews.stream().map(ReviewResponse::from).toList();
     }

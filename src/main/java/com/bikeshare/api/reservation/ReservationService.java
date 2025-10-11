@@ -96,13 +96,10 @@ public class ReservationService {
     public Reservation updateStatus(Long reservationId, ReservationStatus newStatus) {
         Reservation reservation = reservationRepo.findById(reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("Reservation not found with id: " + reservationId));
-
-        // Lógica de negocio para cambiar estados de la bicicleta
         if (newStatus == ReservationStatus.ACCEPTED) {
             reservation.getBike().setStatus(BikeStatus.IN_USE);
         } else if (reservation.getStatus() == ReservationStatus.ACCEPTED &&
                 (newStatus == ReservationStatus.COMPLETED || newStatus == ReservationStatus.CANCELLED)) {
-            // La bicicleta vuelve a estar disponible si la reserva ACEPTADA se completa o cancela.
             reservation.getBike().setStatus(BikeStatus.AVAILABLE);
         }
 

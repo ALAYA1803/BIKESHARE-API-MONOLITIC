@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(err);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class) // Manejo para IDs no encontrados
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleIllegalArgument(IllegalArgumentException ex) {
         ApiError err = new ApiError("Not Found", ex.getMessage(), 404);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
