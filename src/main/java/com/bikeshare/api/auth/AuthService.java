@@ -42,6 +42,6 @@ public class AuthService {
             throw new IllegalArgumentException("Usuario o contraseña inválidos");
         }
 
-        return new AuthResponse("token_jwt_de_ejemplo_para_" + user.getEmail());
+        return new AuthResponse("token_jwt_de_ejemplo" + user.getEmail());
     }
 }
