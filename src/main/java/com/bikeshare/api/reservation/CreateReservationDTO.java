@@ -1,0 +1,11 @@
+package com.bikeshare.api.reservation;
+
+import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+public record CreateReservationDTO(
+        @NotNull Long renterId,
+        @NotNull Long bikeId,
+        @NotNull LocalDateTime startDate,
+        @NotNull LocalDateTime endDate
+) {}
