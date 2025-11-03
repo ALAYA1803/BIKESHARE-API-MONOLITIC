@@ -72,4 +72,21 @@ public class BikeController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Consultar disponibilidad de bicicletas (microservicio)")
+    @GetMapping("/availability")
+    public ResponseEntity<?> getAvailability(@RequestParam(defaultValue = "urbana") String tipo,
+                                             @RequestParam(defaultValue = "centro") String ubicacion) {
+        String url = String.format("http://bike-availability-service:8082/availability?tipo=%s&ubicacion=%s", tipo, ubicacion);
+        try {
+            org.springframework.web.client.RestTemplate restTemplate = new org.springframework.web.client.RestTemplate();
+            var response = restTemplate.getForEntity(url, java.util.Map.class);
+            return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
+        } catch (Exception e) {
+            java.util.Map<String, Object> error = new java.util.HashMap<>();
+            error.put("error", "No se pudo consultar la disponibilidad");
+            error.put("detalle", e.getMessage());
+            return ResponseEntity.status(503).body(error);
+        }
+    }
 }
