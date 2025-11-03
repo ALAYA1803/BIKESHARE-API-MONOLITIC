@@ -1,0 +1,17 @@
+﻿server:
+  port: 8081
+
+spring:
+  application:
+    name: bikeshare-reporting
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/bikeshare}
+    username: ${DB_USER:bikeshare}
+    password: ${DB_PASS:bikeshare}
+    hikari:
+      read-only: true
+      maximum-pool-size: 8
+
+springdoc:
+  api-docs.path: /v3/api-docs
+  swagger-ui.path: /swagger-ui
